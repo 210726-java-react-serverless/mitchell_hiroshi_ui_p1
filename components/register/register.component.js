@@ -77,7 +77,7 @@ function RegisterComponent() {
 
         let status = 0;
 
-        fetch(`${env.apiUrl}/users`, {
+        fetch(`${env.apiUrl}/user`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ function RegisterComponent() {
                     router.navigate('/dashboard');
                 }
             })
-            .catch(err => console.error(err));
+            //.catch(err => console.error(err));
 			
 	}
 
