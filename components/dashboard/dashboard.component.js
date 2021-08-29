@@ -11,18 +11,19 @@ function DashboardComponent() {
 	let withdrawButton;
 	let batches = [];
 	
-	function enroll(){
+	function enroll() {
 		let name = document.getElementById('enrollShortName').value;
 		
 		let status = 0;
-
+		
+		let raw = "{\"shortName\": \"" + name + "\"}";
         fetch(`${env.apiUrl}/student`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-				'Authorization': state.authHeader
+				'Authorization': `${state.authHeader}`
             },
-            body: { "shortName": name }
+            body: raw
         })
             .then(resp => {
                 status = resp.status;
@@ -38,8 +39,33 @@ function DashboardComponent() {
             .catch(err => console.error(err));
 	}
 	
-	function withdraw(){
+	function withdraw() {
 		let name = document.getElementById('withdrawShortName').value;
+		
+		let status = 0;
+		
+		let raw = "{\"shortName\": \"" + name + "\"}";
+        fetch(`${env.apiUrl}/student`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+				'Authorization': `${state.authHeader}`
+            },
+            body: raw
+        })
+            .then(resp => {
+                status = resp.status;
+                return resp.json();
+            })
+            .then(payload => {
+                if (status === 401) {
+                    updateErrorMessage(payload.message);
+                } else {
+                    router.navigate('/dashboard');
+                }
+            })
+            .catch(err => console.error(err));
+		
 	}
 	
 	function getBatches() {
