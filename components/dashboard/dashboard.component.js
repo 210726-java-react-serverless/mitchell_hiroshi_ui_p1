@@ -92,48 +92,6 @@ function DashboardComponent() {
 	}
 	
 	function addBatchesToTable(batches){
-	//[
-    // {
-        // "id": "6113dada3c35917ead302064",
-        // "shortName": "042013",
-        // "name": "CIT 9999",
-        // "status": "Enabled",
-        // "description": "CIT FUNDAMENTALS",
-        // "registrationStart": 1625097600,
-        // "registrationEnd": 1630454400,
-        // "usersRegistered": []
-    // },
-    // {
-        // "id": "6114253c748d29131d633ffa",
-        // "shortName": "111110",
-        // "name": "TEST",
-        // "status": "Enabled",
-        // "description": "whatev",
-        // "registrationStart": 1625097600,
-        // "registrationEnd": 1630454400,
-        // "usersRegistered": []
-    // },
-    // {
-        // "id": "612aa3921461fa7522f38b7f",
-        // "shortName": "shortName",
-        // "name": "name",
-        // "status": "Enabled",
-        // "description": "description",
-        // "registrationStart": 1464457184.937,
-        // "registrationEnd": 1653759584.937,
-        // "usersRegistered": []
-    // },
-    // {
-        // "id": "612aa6f6d10d8d37cbf146e7",
-        // "shortName": "testBatch",
-        // "name": "name",
-        // "status": "Enabled",
-        // "description": "description",
-        // "registrationStart": 1464457184.937,
-        // "registrationEnd": 1653759584.937,
-        // "usersRegistered": []
-    // }
-	//]
 		let table = document.getElementById('batch-table-body');
 		batches.forEach(function (value, i) {
 			var row = table.insertRow(i);
@@ -160,12 +118,21 @@ function DashboardComponent() {
 	
 
     this.render = function() {
-        if (!state.authUser) {
-            router.navigate('/login');
-            return;
+		if (!state.authUser || state.authUser === null) {
+			if (localStorage.getItem('state') === null) {		
+				router.navigate('/login');
+				return;
+			}
+			else
+			{
+				let cachedUser = JSON.parse(localStorage.getItem('state'));
+				state.authUser = cachedUser?.authUser;
+				state.authHeader = cachedUser?.authHeader;
+			}
         }
-		if (state.authUser.userPrivileges === "1"){
+		if (state?.authUser?.userPrivileges === "1"){
 			router.navigate('/admindashboard');
+			return;
 		}
         DashboardComponent.prototype.injectTemplate(() => {
             batchlistElement = document.getElementById('batchlist');

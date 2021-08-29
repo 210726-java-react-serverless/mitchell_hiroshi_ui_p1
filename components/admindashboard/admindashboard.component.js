@@ -202,12 +202,21 @@ function AdminDashboardComponent() {
 	
 
     this.render = function() {
-        if (!state.authUser) {
-            router.navigate('/login');
-            return;
+		if (!state.authUser) {
+			if (localStorage.getItem('state') === null) {		
+				router.navigate('/login');
+				return;
+			}
+			else
+			{
+				let cachedUser = JSON.parse(localStorage.getItem('state'));
+				state.authUser = cachedUser.authUser;
+				state.authHeader = cachedUser.authHeader;
+			}
         }
 		if (state.authUser.userPrivileges === "0"){
 			router.navigate('/dashboard');
+			return;
 		}
         AdminDashboardComponent.prototype.injectTemplate(() => {
             batchlistElement = document.getElementById('batchlist');

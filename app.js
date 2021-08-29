@@ -9,7 +9,6 @@ import { Router } from "./util/router.js";
 //-----------------------------------------------------------------------------------
 
 let routes = [
-
     {
         path: '/login',
         component: loginComponent
