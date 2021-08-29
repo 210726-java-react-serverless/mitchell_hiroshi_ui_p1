@@ -77,7 +77,7 @@ function RegisterComponent() {
 
         let status = 0;
 
-        fetch(`${env.apiUrl}/user`, {
+        fetch(`${env.apiUrl}/users`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -86,6 +86,7 @@ function RegisterComponent() {
         })
             .then(resp => {
                 status = resp.status;
+				state.authHeader = resp.headers?.get('authorization');
                 return resp.json();
             })
             .then(payload => {

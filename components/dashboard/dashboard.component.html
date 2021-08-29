@@ -1,1 +1,36 @@
-<h1>Welcome, <span id="welcome-user"></span></h1>
+<div id="dashboard-component">
+
+    <div class="batchlist">
+
+	
+        <div id="batch-info">
+            <table class="table" id="batch-table">
+                <thead>
+                <th>ID</th>
+                <th>ShortName</th>
+                <th>Name</th>
+                <th>Description</th>
+				<th>Status</th>
+                </thead>
+                <tbody id="batch-table-body">
+
+                </tbody>
+            </table>
+        </div>
+		
+
+            <h4>Enroll in a course (by shortname):</h4>
+            <input type="text" class="form-control" id="enrollShortName">
+			 <button  onclick="enroll()" class="btn btn-primary" id="enrollButton">Enroll</button>
+
+            <h4>Withdraw from a course (by shortname):</h4>
+            <input type="text" class="form-control" id="withdrawShortName">
+            <button  onclick="withdraw()" class="btn btn-primary" id="withdrawButton">Withdraw</button>
+		
+    </div>
+
+    <div id="error-msg-container">
+        <p hidden id="error-msg" class="alert alert-danger"></p>
+    </div>
+
+</div>

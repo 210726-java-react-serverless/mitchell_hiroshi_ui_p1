@@ -59,6 +59,7 @@ function LoginComponent() {
         })
             .then(resp => {
                 status = resp.status;
+				state.authHeader = resp.headers?.get('authorization');
                 return resp.json();
             })
             .then(payload => {
