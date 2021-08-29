@@ -16,7 +16,7 @@ function DashboardComponent() {
 		
 		let status = 0;
 		
-		let raw = "{\"shortName\": \"" + name + "\"}";
+		let raw = `{\"shortName\": \"${name}\"}`;
         fetch(`${env.apiUrl}/student`, {
             method: 'POST',
             headers: {
@@ -44,7 +44,7 @@ function DashboardComponent() {
 		
 		let status = 0;
 		
-		let raw = "{\"shortName\": \"" + name + "\"}";
+		let raw = `{\"shortName\": \"${name}\"}`;
         fetch(`${env.apiUrl}/student`, {
             method: 'DELETE',
             headers: {
@@ -164,7 +164,9 @@ function DashboardComponent() {
             router.navigate('/login');
             return;
         }
-
+		if (state.authUser.userPrivileges === "1"){
+			router.navigate('/admindashboard');
+		}
         DashboardComponent.prototype.injectTemplate(() => {
             batchlistElement = document.getElementById('batchlist');
 			enrollButton = document.getElementById('enrollButton');

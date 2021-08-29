@@ -67,7 +67,10 @@ function LoginComponent() {
                     updateErrorMessage(payload.message);
                 } else {
                     state.authUser = payload;
-                    router.navigate('/dashboard');
+					if (state.authUser.userPrivileges === "0")
+						router.navigate('/dashboard');
+					if (state.authUser.userPrivileges === "1")
+						router.navigate('/admindashboard');
                 }
             })
             .catch(err => console.error(err));
