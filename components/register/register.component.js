@@ -96,7 +96,7 @@ function RegisterComponent() {
                     router.navigate('/dashboard');
                 }
             })
-            //.catch(err => console.error(err));
+            .catch(err => console.error(err));
 			
 	}
 
