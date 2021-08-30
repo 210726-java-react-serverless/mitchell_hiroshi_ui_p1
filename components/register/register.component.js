@@ -102,24 +102,6 @@ function RegisterComponent() {
 	}
 
     this.render = function() {
-		if (!state.authUser) {
-			if (localStorage.getItem('state') === null) {		
-				router.navigate('/login');
-				return;
-			}
-			else
-			{
-				let cachedUser = JSON.parse(localStorage.getItem('state'));
-				state.authUser = cachedUser.authUser;
-				state.authHeader = cachedUser.authHeader;
-				router.navigate('/dashboard');
-				return;
-			}
-		}
-		else{
-			router.navigate('/dashboard'); 
-			return;
-		}
         RegisterComponent.prototype.injectTemplate(() => {
             firstnameFieldElement = document.getElementById('register-form-firstname');
 			lastnameFieldElement = document.getElementById('register-form-lastname');
