@@ -47,8 +47,8 @@ function RegisterComponent() {
         password = e.target.value;
         console.log(password);
     }
-
-    function updateErrorMessage(errorMessage) {
+	
+	function updateErrorMessage(errorMessage) {
         if (errorMessage) {
             errorMessageElement.removeAttribute('hidden');
             errorMessageElement.innerText = errorMessage;
@@ -90,7 +90,7 @@ function RegisterComponent() {
                 return resp.json();
             })
             .then(payload => {
-                if (status === 401) {
+                if (status != 200) {
                     updateErrorMessage(payload.message);
                 } else {
                     state.authUser = payload;

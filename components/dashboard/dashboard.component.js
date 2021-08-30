@@ -6,10 +6,21 @@ import router from '../../app.js';
 DashboardComponent.prototype = new ViewComponent('dashboard');
 function DashboardComponent() {
 
+    let errorMessageElement;
     let batchlistElement;
 	let enrollButton;
 	let withdrawButton;
 	let batches = [];
+	
+	function updateErrorMessage(errorMessage) {
+        if (errorMessage) {
+            errorMessageElement.removeAttribute('hidden');
+            errorMessageElement.innerText = errorMessage;
+        } else {
+            errorMessageElement.setAttribute('hidden', 'true');
+            errorMessageElement.innerText = '';
+        }
+    }
 	
 	function enroll() {
 		let name = document.getElementById('enrollShortName').value;
@@ -30,7 +41,7 @@ function DashboardComponent() {
                 return resp.json();
             })
             .then(payload => {
-                if (status === 401) {
+                if (status != 200) {
                     updateErrorMessage(payload.message);
                 } else {
                     router.navigate('/dashboard');
@@ -58,7 +69,7 @@ function DashboardComponent() {
                 return resp.json();
             })
             .then(payload => {
-                if (status === 401) {
+                if (status != 200) {
                     updateErrorMessage(payload.message);
                 } else {
                     router.navigate('/dashboard');
@@ -82,7 +93,7 @@ function DashboardComponent() {
 				return resp.json();
 			})
 			.then(payload => {
-				if (status === 401) {
+                if (status != 200) {
 					updateErrorMessage(payload.message);
 				} else {
 					addBatchesToTable(payload);
@@ -138,9 +149,16 @@ function DashboardComponent() {
             batchlistElement = document.getElementById('batchlist');
 			enrollButton = document.getElementById('enrollButton');
 			withdrawButton = document.getElementById('withdrawButton');	
+			errorMessageElement = document.getElementById('error-msg');
+			
 			enrollButton.addEventListener('click', enroll);
 			withdrawButton.addEventListener('click', withdraw);
+			
+
+			
             window.history.pushState('dashboard', 'Dashboard', '/dashboard');
+			
+
 			
 			getBatches();	
         });

@@ -6,11 +6,22 @@ import router from '../../app.js';
 AdminDashboardComponent.prototype = new ViewComponent('admindashboard');
 function AdminDashboardComponent() {
 
+    let errorMessageElement;
     let batchlistElement;
 	let addButton;
 	let modifyButton;
 	let deleteButton;
 	let batches = [];
+	
+	function updateErrorMessage(errorMessage) {
+        if (errorMessage) {
+            errorMessageElement.removeAttribute('hidden');
+            errorMessageElement.innerText = errorMessage;
+        } else {
+            errorMessageElement.setAttribute('hidden', 'true');
+            errorMessageElement.innerText = '';
+        }
+    }
 	
 	function addBatch() {
 		let shortName 			= document.getElementById('addShortName').value;
@@ -36,7 +47,7 @@ function AdminDashboardComponent() {
                 return resp.json();
             })
             .then(payload => {
-                if (status === 401) {
+                if (status != 200) {
                     updateErrorMessage(payload.message);
                 } else {
                     router.navigate('/admindashboard');
@@ -71,7 +82,7 @@ function AdminDashboardComponent() {
                 return resp.json();
             })
             .then(payload => {
-                if (status === 401) {
+                if (status != 200) {
                     updateErrorMessage(payload.message);
                 } else {
                     router.navigate('/admindashboard');
@@ -100,7 +111,7 @@ function AdminDashboardComponent() {
                 return resp.json();
             })
             .then(payload => {
-                if (status === 401) {
+                if (status != 200) {
                     updateErrorMessage(payload.message);
                 } else {
                     router.navigate('/admindashboard');
@@ -124,7 +135,7 @@ function AdminDashboardComponent() {
 				return resp.json();
 			})
 			.then(payload => {
-				if (status === 401) {
+                if (status != 200) {
 					updateErrorMessage(payload.message);
 				} else {
 					batches = payload;
@@ -224,9 +235,13 @@ function AdminDashboardComponent() {
 			addButton = document.getElementById('addButton');
 			modifyButton = document.getElementById('modifyButton');	
 			deleteButton = document.getElementById('deleteButton');	
+			errorMessageElement = document.getElementById('error-msg');
+			
 			addButton.addEventListener('click', addBatch);
 			modifyButton.addEventListener('click', modifyBatch);
 			deleteButton.addEventListener('click', deleteBatch);
+			
+
 			
             window.history.pushState('admindashboard', 'Admindashboard', '/admindashboard');
 			
