@@ -63,7 +63,7 @@ function LoginComponent() {
                 return resp.json();
             })
             .then(payload => {
-                if (status != 200) {
+                if (status > 299) {
                     updateErrorMessage(payload.message);
                 } else {
                     state.authUser = payload;

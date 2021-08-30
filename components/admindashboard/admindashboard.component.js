@@ -47,7 +47,7 @@ function AdminDashboardComponent() {
                 return resp.json();
             })
             .then(payload => {
-                if (status != 200) {
+                if (status > 299) {
                     updateErrorMessage(payload.message);
                 } else {
                     router.navigate('/admindashboard');
@@ -82,7 +82,7 @@ function AdminDashboardComponent() {
                 return resp.json();
             })
             .then(payload => {
-                if (status != 200) {
+                if (status > 299) {
                     updateErrorMessage(payload.message);
                 } else {
                     router.navigate('/admindashboard');
@@ -111,7 +111,7 @@ function AdminDashboardComponent() {
                 return resp.json();
             })
             .then(payload => {
-                if (status != 200) {
+                if (status > 299) {
                     updateErrorMessage(payload.message);
                 } else {
                     router.navigate('/admindashboard');
@@ -135,7 +135,7 @@ function AdminDashboardComponent() {
 				return resp.json();
 			})
 			.then(payload => {
-                if (status != 200) {
+                if (status > 299) {
 					updateErrorMessage(payload.message);
 				} else {
 					batches = payload;

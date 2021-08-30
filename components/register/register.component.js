@@ -77,7 +77,7 @@ function RegisterComponent() {
 
         let status = 0;
 
-        fetch(`${env.apiUrl}/users`, {
+        fetch(`${env.apiUrl}/user`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ function RegisterComponent() {
                 return resp.json();
             })
             .then(payload => {
-                if (status != 200) {
+                if (status > 299) {
                     updateErrorMessage(payload.message);
                 } else {
                     state.authUser = payload;
