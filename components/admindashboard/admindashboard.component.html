@@ -1,0 +1,53 @@
+<div id="dashboard-component">
+
+    <div class="batchlist">
+        <div id="batch-info">
+            <table class="table" id="batch-table">
+                <thead>
+                <th>ID</th>
+                <th>ShortName</th>
+                <th>Name</th>
+                <th>Description</th>
+				<th>Registration Start</th>
+				<th>Registration End</th>
+				<th>Status</th>
+				<th>Users Registered</th>
+                </thead>
+                <tbody id="batch-table-body">
+                </tbody>
+            </table>
+        </div>
+		
+		<div id="modify-block">
+            <h4>Add in a course</h4>
+			<span>
+			<input type="text" class="form-control" id="addShortName" style="width:200px; display:inline" placeholder="ShortName">
+            <input type="text" class="form-control" id="addName" style="width:200px; display:inline" placeholder="Name">
+			<input type="text" class="form-control" id="addDescription" style="width:200px; display:inline" placeholder="Description">
+			<input type="text" class="form-control" id="addRegStart" style="width:200px; display:inline" placeholder="Registration Start">
+			<input type="text" class="form-control" id="addRegEnd" style="width:200px; display:inline" placeholder="Registration End">
+			<input type="text" class="form-control" id="addStatus" style="width:200px; display:inline" placeholder="Status">
+			</span>
+			 <button  onclick="addBatch()" class="btn btn-primary" id="addButton">Add</button>
+			 
+			 <h4>Modify a course (by shortname; leave empty to keep the same)</h4>
+			<input type="text" class="form-control" id="modifyShortName" style="width:200px; display:inline" placeholder="ShortName">
+            <input type="text" class="form-control" id="modifyName" style="width:200px; display:inline" placeholder="Name">
+			<input type="text" class="form-control" id="modifyDescription" style="width:200px; display:inline" placeholder="Description">
+			<input type="text" class="form-control" id="modifyRegStart" style="width:200px; display:inline" placeholder="Registration Start">
+			<input type="text" class="form-control" id="modifyRegEnd" style="width:200px; display:inline" placeholder="Registration End">
+			<input type="text" class="form-control" id="modifyStatus" style="width:200px; display:inline" placeholder="Status">
+			 <button  onclick="modifyBatch()" class="btn btn-primary" id="modifyButton">Modify</button>
+			 
+            <h4>Delete a course (by shortname):</h4>
+            <input type="text" class="form-control" id="deleteShortName" style="width:200px" placeholder="ShortName">
+            <button  onclick="deleteBatch()" class="btn btn-primary" id="deleteButton">Delete</button>
+		</div>
+		
+    </div>
+
+    <div id="error-msg-container">
+        <p hidden id="error-msg" class="alert alert-danger"></p>
+    </div>
+
+</div>

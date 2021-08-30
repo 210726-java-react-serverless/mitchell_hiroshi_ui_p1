@@ -47,8 +47,8 @@ function RegisterComponent() {
         password = e.target.value;
         console.log(password);
     }
-
-    function updateErrorMessage(errorMessage) {
+	
+	function updateErrorMessage(errorMessage) {
         if (errorMessage) {
             errorMessageElement.removeAttribute('hidden');
             errorMessageElement.innerText = errorMessage;
@@ -77,7 +77,7 @@ function RegisterComponent() {
 
         let status = 0;
 
-        fetch(`${env.apiUrl}/users`, {
+        fetch(`${env.apiUrl}/user`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -86,10 +86,11 @@ function RegisterComponent() {
         })
             .then(resp => {
                 status = resp.status;
+				state.authHeader = resp.headers?.get('authorization');
                 return resp.json();
             })
             .then(payload => {
-                if (status === 401) {
+                if (status > 299) {
                     updateErrorMessage(payload.message);
                 } else {
                     state.authUser = payload;
@@ -101,7 +102,6 @@ function RegisterComponent() {
 	}
 
     this.render = function() {
-
         RegisterComponent.prototype.injectTemplate(() => {
             firstnameFieldElement = document.getElementById('register-form-firstname');
 			lastnameFieldElement = document.getElementById('register-form-lastname');

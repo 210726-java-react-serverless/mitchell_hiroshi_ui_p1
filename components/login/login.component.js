@@ -59,14 +59,19 @@ function LoginComponent() {
         })
             .then(resp => {
                 status = resp.status;
+				state.authHeader = resp.headers?.get('authorization');
                 return resp.json();
             })
             .then(payload => {
-                if (status === 401) {
+                if (status > 299) {
                     updateErrorMessage(payload.message);
                 } else {
                     state.authUser = payload;
-                    router.navigate('/dashboard');
+					localStorage.setItem('state', JSON.stringify({'authHeader': state.authHeader, 'authUser': state.authUser}));
+					if (state.authUser.userPrivileges === "0")
+						router.navigate('/dashboard');
+					if (state.authUser.userPrivileges === "1")
+						router.navigate('/admindashboard');
                 }
             })
             .catch(err => console.error(err));
@@ -75,8 +80,23 @@ function LoginComponent() {
 
 
     this.render = function() {
+		if (!state.authUser) {
+			if (localStorage.getItem('state') === null) {		
+			}
+			else
+			{
+				let cachedUser = JSON.parse(localStorage.getItem('state'));
+				state.authUser = cachedUser.authUser;
+				state.authHeader = cachedUser.authHeader;
+				router.navigate('/dashboard');
+				return;
+			}
+		}
+		else{
+			router.navigate('/dashboard'); 
+			return;
+		}
         LoginComponent.prototype.injectTemplate(() => {
-
             usernameFieldElement = document.getElementById('login-form-username');
             passwordFieldElement = document.getElementById('login-form-password');;
             loginButtonElement = document.getElementById('login-form-button');;
@@ -87,9 +107,9 @@ function LoginComponent() {
             loginButtonElement.addEventListener('click', login);
 
             window.history.pushState('login', 'Login', '/login');
-
         });
-        LoginComponent.prototype.injectStylesheet();
+        LoginComponent.prototype.injectStylesheet();				
+
     }
 
 }

@@ -1,4 +1,6 @@
 import router from "../../app.js";
+import env from '../../util/env.js';
+import state from '../../util/state.js';
 
 const NAVBAR_ELEMENT = document.getElementById('navbar');
 
@@ -38,7 +40,11 @@ function NavbarComponent() {
     }
 
     function logout() {
-        console.log('Logging you out!');
+		localStorage.removeItem('state');
+		state.authUser = null;
+		state.authHeader = null;
+		router.navigate('/login');
+		return;
     }
 
     this.render = function() {
